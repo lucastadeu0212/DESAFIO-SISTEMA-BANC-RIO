@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class SistemaBancario:
     def __init__(self):
         self.saldo = 0
@@ -9,7 +12,8 @@ class SistemaBancario:
     def deposito(self, valor):
         if valor > 0:
             self.saldo += valor
-            self.extrato.append(f"Depósito: +R${valor}")
+            data_hora = datetime.now().strftime("%d-%m-%y %H:%M:%S")
+            self.extrato.append(f"{data_hora} - Depósito: +R${valor}")
             print("Depósito realizado com sucesso.")
         else:
             print("O valor do depósito deve ser maior que zero.")
@@ -19,7 +23,8 @@ class SistemaBancario:
             self.saldo -= valor
             self.saldo_saque_diario -= valor
             self.saques_restantes -= 1
-            self.extrato.append(f"Saque: -R${valor}")
+            data_hora = datetime.now().strftime("%d-%m-%y %H:%M:%S")
+            self.extrato.append(f"{data_hora} - Saque: -R${valor}")
             print("Saque realizado com sucesso.")
         elif valor > self.saldo_saque_diario:
             print("Valor do saque excede o limite diário.")
@@ -36,14 +41,6 @@ class SistemaBancario:
 
 
 sistema_bancario = SistemaBancario()
-
-
 sistema_bancario.deposito(1000)
 sistema_bancario.saque(500)
-sistema_bancario.saque(800) 
-sistema_bancario.deposito(2000)
-sistema_bancario.saque(700)
-sistema_bancario.saque(400)
-sistema_bancario.saque(300)  
-
 sistema_bancario.imprimir_extrato()
